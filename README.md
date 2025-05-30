@@ -1,7 +1,8 @@
 # uavRGBTE
 
 
-this is the offical code and dataset for uavRGBTE
+this is the offical code and dataset for Tri-Modal Anti-UAV: A Comprehensive Benchmarking Dataset for
+UAV-Targeted Detection.
 
 
 Abstract
