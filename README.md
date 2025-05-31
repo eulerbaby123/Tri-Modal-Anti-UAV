@@ -31,3 +31,7 @@ modal fusion elevates accuracy to 89.9% mAP50. Our dataset pro-
 vides a critical resource for developing event-aware, robust anti-
 UAV detectors. Data, code, and models are open-sourced at: https:
 //github.com/eulerbaby123/Tri-Modal-Anti-UAV.
+
+
+
+dataset：https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link
