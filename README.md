@@ -106,16 +106,22 @@ UAV detectors.
 数据集中包含了多种具有挑战性的场景。
 
 **数据集样本概览:**
-![Dataset Samples](images/Screenshot2025-06-01_16-49-42.png)
-**图注：** Tri-Modal Anti-UAV 数据集样本图像。目标用红色框标出。顶行：RGB模态；中间行：红外热成像模态；底行：事件模态，展示了多样性的事件数据质量 (对应论文 Figure 1)。
+<div align="center">
+  <img src="assets/images/Screenshot2025-06-01_16-49-42.png" width="600" alt="Dataset Samples">
+  <br/><em>图注：Tri-Modal Anti-UAV 数据集样本图像。目标用红色框标出。顶行：RGB模态；中间行：红外热成像模态；底行：事件模态，展示了多样性的事件数据质量 (对应论文 Figure 1)。</em>
+</div>
 
 **各种质量的事件数据示例:**
-![Event Data Quality Examples](assets/images/Screenshot2025-06-01_18-39-12.png)
-**图注：** 事件模态数据质量的多样性展示，从左到右质量递减。
+<div align="center">
+  <img src="assets/images/Screenshot2025-06-01_18-39-12.png" width="600" alt="Event Data Quality Examples">
+  <br/><em>图注：事件模态数据质量的多样性展示，从左到右质量递减。</em>
+</div>
 
 **多样化拍摄场景 (以红外模态展示):**
-![Diverse Scenes IR](assets/images/Screenshot2025-06-01_18-57-35.png)
-**图注：** 数据集中多样化的拍摄场景（以红外模态展示部分样例）。
+<div align="center">
+  <img src="assets/images/Screenshot2025-06-01_18-57-35.png" width="600" alt="Diverse Scenes IR">
+  <br/><em>图注：数据集中多样化的拍摄场景（以红外模态展示部分样例）。</em>
+</div>
 
 **其他关键场景类型包括:**
 *   高空小目标
@@ -134,8 +140,10 @@ UAV detectors.
 由于不同传感器的固有差异（如分辨率和视场角）及其固定的非共处物理排列，我们采用基于特征点的配准技术，将RGB和事件帧与热红外模态的坐标系对齐。估算并应用仿射变换矩阵，主要确保包含无人机的区域在三个模态中空间一致。我们采用“弱对齐”策略，有意不强制标注边界框内无人机的严格像素级对应，以鼓励开发对微小空间不一致性更鲁棒的融合机制。
 
 下图展示了对齐前（使用特征点）的情况：
-![Image Alignment Diagram](assets/images/Screenshot2025-06-01_16-57-22.png)
-**图注：** 对齐前图像（绿点表示对应特征点，这里以RGB对齐红外图像为例）。
+<div align="center">
+  <img src="assets/images/Screenshot2025-06-01_16-57-22.png" width="600" alt="Image Alignment Diagram">
+  <br/><em>图注：对齐前图像（绿点表示对应特征点，这里以RGB对齐红外图像为例）。</em>
+</div>
 
 对齐后的图像确保了目标区域在不同模态间的空间一致性，为后续的统一标注和有效多模态融合奠定了基础。
 
@@ -147,8 +155,10 @@ UAV detectors.
 *   **预训练权重**: `[ATMF-Net权重下载链接或说明]` (例如: 可在 Release 页面找到)
 
 下图展示了 ATMF-Net 的网络架构：
-![ATMF-Net Architecture](assets/images/Screenshot2025-06-01_16-48-55.png)
-**图注：** ATMF-Net 网络架构。右侧：整体融合路径（以RGB特征为例）。左侧：三模态融合专家（Tri-Modal Fusion Expert）的详细信息。关键组件包括事件可靠性评估器（ERE）和用于动态专家权重调整的MoE路由器。$\oplus$: 特征相加, $\otimes$: 加权融合 (对应论文 Figure 2)。
+<div align="center">
+  <img src="assets/images/Screenshot2025-06-01_16-48-55.png" width="600" alt="ATMF-Net Architecture">
+  <br/><em>图注：ATMF-Net 网络架构。右侧：整体融合路径（以RGB特征为例）。左侧：三模态融合专家（Tri-Modal Fusion Expert）的详细信息。关键组件包括事件可靠性评估器（ERE）和用于动态专家权重调整的MoE路由器。$\oplus$: 特征相加, $\otimes$: 加权融合 (对应论文 Figure 2)。</em>
+</div>
 
 ### LW-MoESGF (RGB+IR)
 作为对比基线，我们还提供了 LW-MoESGF (Lightweight Mixture-of-Experts with Self-Guided Fusion) 模型的实现，这是一个高效的RGB-IR双模态融合模型。
@@ -156,8 +166,10 @@ UAV detectors.
 *   **预训练权重**: `[LW-MoESGF权重下载链接或说明]`
 
 下图展示了 LW-MoESGF 的网络架构：
-![LW-MoESGF Architecture](assets/images/Screenshot2025-06-01_16-49-09.png)
-**图注：** LW-MoESGF 网络架构。左侧：双模态融合专家（Dual-Modal Fusion Expert）的详细信息，包括自引导融合（SGF）和细化模块。右侧：整体结构。$\oplus$: 特征相加, $\otimes$: 加权融合 (对应论文 Figure 3)。
+<div align="center">
+  <img src="assets/images/Screenshot2025-06-01_16-49-09.png" width="600" alt="LW-MoESGF Architecture">
+  <br/><em>图注：LW-MoESGF 网络架构。左侧：双模态融合专家（Dual-Modal Fusion Expert）的详细信息，包括自引导融合（SGF）和细化模块。右侧：整体结构。$\oplus$: 特征相加, $\otimes$: 加权融合 (对应论文 Figure 3)。</em>
+</div>
 
 ## 📊 主要结果
 
@@ -189,8 +201,10 @@ UAV detectors.
 
 #### 检测结果定性对比
 下图定性比较了不同方法在 Tri-Modal Anti-UAV 数据集上的检测效果。
-![Qualitative Results](assets/images/Screenshot2025-06-01_16-49-24.png)
-**图注：** Tri-Modal Anti-UAV 上的定性比较。从左到右：RGB、IR 和事件输入。图像上叠加显示：真实标签 (Ground Truth, 红色框)，LW-MoESGF (RGB+IR, 绿色框) 的检测结果，以及我们的 ATMF-Net (蓝色框) 的检测结果 (对应论文 Figure 4)。
+<div align="center">
+  <img src="assets/images/Screenshot2025-06-01_16-49-24.png" width="600" alt="Qualitative Results">
+  <br/><em>图注：Tri-Modal Anti-UAV 上的定性比较。从左到右：RGB、IR 和事件输入。图像上叠加显示：真实标签 (Ground Truth, 红色框)，LW-MoESGF (RGB+IR, 绿色框) 的检测结果，以及我们的 ATMF-Net (蓝色框) 的检测结果 (对应论文 Figure 4)。</em>
+</div>
 
 ## 🛠️ 安装
 
