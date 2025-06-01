@@ -8,14 +8,20 @@
 
 本项目旨在提供一个全面的三模态（RGB、Thermal、Event）反无人机检测基准数据集 **Tri-Modal Anti-UAV**，并提出了一种有效的自适应融合网络 **ATMF-Net** 用于无人机目标检测。
 
+## ⚖️ Ethical Considerations and Privacy (道德考量与隐私)
+
+本数据集中所有数据均在公共或受控区域采集，不涉及个人隐私信息。图像中的人物（如果出现）均已进行模糊化处理或确保其不可识别。本项目中提供的所有代码、数据集及相关资源，任何非商业化用途的科学研究、教育或个人实验均默认获得许可，无需作者特别授权。如需商业化应用，请联系作者。
+
 ## 目录
 
 - [uavRGBTE: Tri-Modal Anti-UAV Dataset and ATMF-Net](#uavrgbte-tri-modal-anti-uav-dataset-and-atmf-net)
+  - [⚖️ Ethical Considerations and Privacy (道德考量与隐私)](#️-ethical-considerations-and-privacy-道德考量与隐私)
   - [目录](#目录)
   - [📝 简介](#-简介)
   - [📸 数据集: Tri-Modal Anti-UAV](#-数据集-tri-modal-anti-uav)
     - [数据概览](#数据概览)
     - [数据采集与处理](#数据采集与处理)
+    - [对齐补充说明](#对齐补充说明)
     - [数据集统计](#数据集统计)
     - [场景展示](#场景展示)
     - [数据下载](#数据下载)
@@ -23,6 +29,7 @@
   - [🚀 模型与权重](#-模型与权重)
     - [ATMF-Net](#atmf-net)
     - [LW-MoESGF (RGB+IR)](#lw-moesgf-rgbir)
+    - [其他实验资源](#其他实验资源)
   - [📊 主要结果](#-主要结果)
     - [表格](#表格)
     - [图示](#图示)
@@ -93,6 +100,19 @@ UAV detectors.
 *   **多模态对齐**: 鉴于传感器规格（分辨率、视场角）和物理布置的差异，采用基于特征点的配准技术将RGB和事件帧对齐到热红外模态的坐标系（热红外具有最高原始分辨率）。应用仿射变换矩阵，确保包含无人机的区域在三个模态间空间一致。采用“弱对齐”策略，即不强制标注边界框内无人机的严格像素级对应，旨在鼓励开发对轻微空间不一致性不敏感的鲁棒融合机制。
 *   **数据标注**: 所有数据均使用LabelImg以YOLO格式进行标注。标注在通过对齐后的三模态数据进行像素级融合创建的图像上进行，这些标注可直接转移到配准后的RGB、IR和事件数据帧。
 
+### 对齐补充说明
+需要注意的是，在数据集中，少部分图像由于采集于近距离场景、不同传感器间固有的视角差异以及像素分辨率差异等因素的综合影响，在经过仿射变换对齐后，其边缘区域可能出现部分无有效像素信息的区域。这些区域我们统一用黑色或白色进行了填充。因此，对齐前后的图像在视觉上可能存在一定的差异。
+
+我们选择保留这些样本而非丢弃，原因在于：
+1.  **真实场景模拟**：这种情况在实际多传感器融合应用中是可能发生的，保留它们有助于模型学习应对此类不完美对齐。
+2.  **鲁棒性提升**：这些由对齐引入的、内容信息基本不变的视觉差异，可以视为一种数据增强或干扰。我们认为，这反而能够促使模型学习到更本质、更鲁棒的特征，提升其在复杂真实环境下的泛化能力。
+
+下图展示了一个此类对齐后图像出现边缘填充的示例：
+<div align="center">
+  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/34fabfae1f61173924738877dea5e85addc5423b/images/Screenshot2025-06-01_19-31-01.png?raw=true" width="600" alt="Alignment Artifact Example">
+  <br/><em>图注：对齐后图像边缘可能出现无像素信息（黑色填充）的示例。</em>
+</div>
+
 ### 数据集统计
 **表：Tri-Modal Anti-UAV 数据集关键统计**
 | 属性                                  | 占比 (实例) |
@@ -158,7 +178,7 @@ UAV detectors.
 ### ATMF-Net
 我们提出的 ATMF-Net (Adaptive Tri-Modal Fusion Network) 是一种有效融合三模态信息的网络结构，专为无人机检测设计。其核心思想是根据事件模态的实时可靠性动态评估和调整其在融合过程中的贡献，从而在事件数据质量波动时保持检测的鲁棒性。
 *   **代码**: `./models/ATMF_Net/` (请替换为实际路径)
-*   **预训练权重**: `[ATMF-Net权重下载链接或说明]` (例如: 可在 Release 页面找到)
+*   **预训练权重 (Best) GDrive**: [https://drive.google.com/file/d/1xsx8g-1wAIUPylxw0jj6pXMck-VM_JX7/view?usp=drive_link](https://drive.google.com/file/d/1xsx8g-1wAIUPylxw0jj6pXMck-VM_JX7/view?usp=drive_link)
 
 **ATMF-Net 网络架构图:**
 <div align="center">
@@ -183,6 +203,9 @@ UAV detectors.
   <br/><em>图注：Self-Guided Fusion (SGF) 模块的详细结构，它是 LW-MoESGF 中的一个关键组件。</em>
 </div>
 
+### 其他实验资源
+*   **其他论文实验代码与权重 GDrive**: [https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link](https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link)
+    *   此链接包含了论文中进行对比实验或消融研究所使用的其他模型代码和/或预训练权重。请根据压缩包内说明使用。
 
 ## 📊 主要结果
 
