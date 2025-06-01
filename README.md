@@ -106,7 +106,7 @@ UAV detectors.
 数据集中包含了多种具有挑战性的场景。
 
 **数据集样本概览:**
-![Dataset Samples](assets/images/Screenshot2025-06-01_16-49-42.png)
+![Dataset Samples](images/Screenshot2025-06-01_16-49-42.png)
 **图注：** Tri-Modal Anti-UAV 数据集样本图像。目标用红色框标出。顶行：RGB模态；中间行：红外热成像模态；底行：事件模态，展示了多样性的事件数据质量 (对应论文 Figure 1)。
 
 **各种质量的事件数据示例:**
