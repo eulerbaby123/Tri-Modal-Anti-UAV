@@ -267,7 +267,7 @@ The following image shows an example of such an aligned image with edge padding:
 1.  Download the Tri-Modal Anti-UAV dataset (link in the [Data Download](#data-download) section).
 2.  Extract the dataset and organize it as follows (or adjust according to your configuration files):
     ```
-    ```
+    
     Tri-Modal-Anti-UAV/
     ├── images/
     │  
@@ -281,7 +281,7 @@ The following image shows an example of such an aligned image with edge padding:
     └──val_event.txt
     ```
 
-    ```
+    
     
 
 ### Testing  or Training
