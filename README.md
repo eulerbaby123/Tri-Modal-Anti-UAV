@@ -38,10 +38,34 @@
 
 ## 📝 简介
 
-[请在此处插入论文的摘要或项目简介，简要介绍研究背景、目的、方法和主要贡献。]
 
+The proliferation of unmanned aerial vehicles (UAVs) necessitates
+robust anti-UAV detection systems. While multi-modal fusion (e.g.,
+RGB-Thermal) improves resilience, performance bottlenecks persist
+in extreme scenarios like motion blur and low contrast. Event cam-
+eras offer high dynamic range and temporal resolution but suffer
+from inherent data quality fluctuations, which existing datasets
+fail to systematically capture. To bridge this gap, we introduce
+Tri-Modal Anti-UAV : the first tri-modal (RGB, Thermal, Event)
+dataset specifically designed for anti-UAV research. It features 1,060
+synchronised image triplets across diverse scenarios (e.g., high-
+altitude tiny targets, poor illumination, environmental background
+interference), with a unique emphasis on preserving the full spec-
+trum of event data quality—from dense to sparse/noisy streams.
+Building on this benchmarking dataset, we propose ATMF-Net,
+an Adaptive Tri-Modal Fusion network that dynamically modu-
+lates event modality contributions based on real-time reliability
+estimation. Our lightweight architecture integrates a Mixture-of-
+Experts framework and Self-Guided Fusion, achieving high effi-
+ciency while outperforming non-adaptive fusion. Rigorous bench-
+marking validates Tri-Modal Anti-UAV ’s challenging nature: event-
+only detection performs poorly (9.76% mAP50), yet adaptive tri-
+modal fusion elevates accuracy to 89.9% mAP50. Our dataset pro-
+vides a critical resource for developing event-aware, robust anti-
+UAV detectors. 
 **主要特性:**
-*   首个针对反无人机检测的大型三模态数据集（RGB、红外热成像、事件相机数据）。
+*   首个针对反无人机检测的三模态数据集（RGB、红外热成像、事件相机数据）。
+*   保留各种质量的事件模态，更加贴近实际，也为事件模态平衡方法的开发提供了基础
 *   包含多种复杂场景和无人机类型。
 *   提供了 ATMF-Net 等基线模型的实现。
 *   详细的评估指标和结果。
@@ -63,10 +87,10 @@
 *   **Google Drive**: [https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link](https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link)
 
 [如果数据集有特定的组织结构或标注格式说明，请在此处添加。]
-
+数据集采用yolo标注格式。
 ## 🔧 图像对齐方式
 
-我们采用了 [请简要描述对齐方法] 的方式来确保不同模态图像之间的空间对齐。下图展示了我们的对齐流程/效果：
+我们采用了 [基于特征点的仿射变换] 的方式来确保不同模态图像之间的目标弱对齐。下图展示了我们的对齐流程/效果：
 
 [请在此处插入图像对齐的示意图，例如：]
 <!-- ![Image Alignment](path/to/your/alignment_figure.png) -->
@@ -100,11 +124,8 @@
 
 [可以添加更多表格]
 
-### 图示
+### 事件模态效果
 
-**图1: [图标题，例如：PR 曲线对比]**
-<!-- ![PR Curve](path/to/your/pr_curve_figure.png) -->
-**图注：** [请描述上图内容]
 
 [可以添加更多图示，例如检测结果的可视化示例]
 
@@ -118,26 +139,11 @@
 
 ### 安装步骤
 
-1.  **克隆本仓库:**
-    ```bash
-    git clone [您的仓库HTTPS链接]
-    cd uavRGBTE
-    ```
 
-2.  **创建并激活虚拟环境 (推荐):**
-    ```bash
-    python -m venv venv
-    # Windows
-    # venv\Scripts\activate
-    # macOS/Linux
-    source venv/bin/activate
-    ```
-
-3.  **安装依赖:**
+1.  **安装依赖:**
     ```bash
     pip install -r requirements.txt
     ```
-    如果遇到 `pycocotools` 安装问题，请参考其官方文档进行安装。对于 Windows 用户，可能需要预先安装 Microsoft C++ Build Tools。
 
 ### 依赖库
 本项目主要依赖以下库 (完整列表请见 `requirements.txt`):
