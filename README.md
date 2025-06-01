@@ -1,52 +1,51 @@
-#  Tri-Modal Anti-UAV Dataset and ATMF-Net
-
+# Tri-Modal Anti-UAV Dataset and ATMF-Net
 
 [![Dataset](https://img.shields.io/badge/Dataset-Download-blue.svg)](https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link)
 [![GitHub](https://img.shields.io/badge/GitHub-Repo-blue.svg)](https://github.com/eulerbaby123/Tri-Modal-Anti-UAV)
 
-欢迎来到 **Tri-Modal Anti-UAV** 项目！这是论文 **"Adaptive Tri-Modal Fusion for Robust Anti-UAV Detection with Event Fluctuation Awareness"**  的官方代码和数据集。
+Welcome to the **Tri-Modal Anti-UAV** project! This repository contains the official code and dataset for the paper **"Adaptive Tri-Modal Fusion for Robust Anti-UAV Detection with Event Fluctuation Awareness"**.
 
-本项目旨在提供一个全面的三模态（RGB、Thermal、Event）反无人机检测基准数据集 **Tri-Modal Anti-UAV**，并提出了一种有效的自适应融合网络 **ATMF-Net** 用于无人机目标检测。
+This project aims to provide a comprehensive tri-modal (RGB, Thermal, Event) anti-UAV detection benchmark dataset, **Tri-Modal Anti-UAV**, and proposes an effective adaptive fusion network, **ATMF-Net**, for UAV object detection.
 
-## ⚖️ Ethical Considerations and Privacy (道德考量与隐私)
+## ⚖️ Ethical Considerations and Privacy
 
-本数据集中所有数据均在公共或受控区域采集，不涉及个人隐私信息。图像中的人物（如果出现）均已进行模糊化处理或确保其不可识别。本项目中提供的所有代码、数据集及相关资源，任何非商业化用途的科学研究、教育或个人实验均默认获得许可，无需作者特别授权。如需商业化应用，请联系作者。
+All data in this dataset were collected in public or controlled areas and do not involve personal privacy information. Any persons appearing in the images (if any) have been blurred or otherwise de-identified. All code, datasets, and related resources provided in this project are permitted by default for any non-commercial use in scientific research, education, or personal experiments, without requiring special authorization from the authors. For commercial applications, please contact the authors.
 
-## 目录
+## Table of Contents
 
-- [Tri-Modal Anti-UAV Dataset and ATMF-Net](#uavrgbte-tri-modal-anti-uav-dataset-and-atmf-net)
-  - [⚖️ Ethical Considerations and Privacy (道德考量与隐私)](#️-ethical-considerations-and-privacy-道德考量与隐私)
-  - [目录](#目录)
-  - [📝 简介](#-简介)
-  - [📸 数据集: Tri-Modal Anti-UAV](#-数据集-tri-modal-anti-uav)
-    - [数据概览](#数据概览)
-    - [数据采集与处理](#数据采集与处理)
-    - [数据集统计](#数据集统计)
-    - [场景展示](#场景展示)
-    - [数据下载](#数据下载)
-  - [🔧 图像对齐方式](#-图像对齐方式)
-  - [🚀 模型与权重](#-模型与权重)
+- [Tri-Modal Anti-UAV Dataset and ATMF-Net](#tri-modal-anti-uav-dataset-and-atmf-net)
+  - [⚖️ Ethical Considerations and Privacy](#️-ethical-considerations-and-privacy)
+  - [Table of Contents](#table-of-contents)
+  - [📝 Introduction](#-introduction)
+  - [📸 Dataset: Tri-Modal Anti-UAV](#-dataset-tri-modal-anti-uav)
+    - [Data Overview](#data-overview)
+    - [Data Collection and Processing](#data-collection-and-processing)
+    - [Dataset Statistics](#dataset-statistics)
+    - [Scene Showcase](#scene-showcase)
+    - [Data Download](#data-download)
+  - [🔧 Image Alignment](#-image-alignment)
+  - [🚀 Models and Weights](#-models-and-weights)
     - [ATMF-Net](#atmf-net)
     - [LW-MoESGF (RGB+IR)](#lw-moesgf-rgbir)
-    - [其他实验资源](#其他实验资源)
-  - [📊 主要结果](#-主要结果)
-    - [表格](#表格)
-    - [图示](#图示)
-    - [数据集补充说明](#对齐补充说明)
-  - [🛠️ 安装](#️-安装)
-    - [环境要求](#环境要求)
-    - [安装步骤](#安装步骤)
-    - [依赖库](#依赖库)
-  - [⚙️ 使用](#️-使用)
-    - [数据准备](#数据准备)
-    - [训练](#训练)
-    - [评估](#评估)
-  - [📜 引用](#-引用)
-  - [📄 许可证](#-许可证)
-  - [🙏 致谢](#-致谢)
-  - [📞 联系方式](#-联系方式)
+    - [Other Experimental Resources](#other-experimental-resources)
+  - [📊 Main Results](#-main-results)
+    - [Tables](#tables)
+    - [Figures](#figures)
+    - [Dataset Supplementary Notes](#dataset-supplementary-notes)
+  - [🛠️ Installation](#️-installation)
+    - [Environment Requirements](#environment-requirements)
+    - [Installation Steps](#installation-steps)
+    - [Key Dependencies](#key-dependencies)
+  - [⚙️ Usage](#️-usage)
+    - [Data Preparation](#data-preparation)
+    - [Training](#training)
+    - [Evaluation](#evaluation)
+  - [📜 Citation](#-citation)
+  - [📄 License](#-license)
+  - [🙏 Acknowledgements](#-acknowledgements)
+  - [📞 Contact](#-contact)
 
-## 📝 简介
+## 📝 Introduction
 
 The proliferation of unmanned aerial vehicles (UAVs) necessitates
 robust anti-UAV detection systems. While multi-modal fusion (e.g.,
@@ -73,185 +72,190 @@ modal fusion elevates accuracy to 89.9% mAP50. Our dataset pro-
 vides a critical resource for developing event-aware, robust anti-
 UAV detectors.
 
-**主要特性:**
-*   首个针对反无人机检测的三模态数据集（RGB、红外热成像、事件相机数据）。
-*   系统性地捕获并保留了从密集清晰到稀疏嘈杂的各种质量的事件数据流，更贴近真实应用场景，为开发事件感知和鲁棒的检测算法提供了关键资源。
-*   包含1,060组同步图像三元组，覆盖多种复杂场景（如高空小目标、弱光照、背景干扰）和无人机类型。
-*   提出了 ATMF-Net，一种根据事件数据实时可靠性动态调整其贡献的自适应三模态融合网络。
-*   提供了 ATMF-Net 及 LW-MoESGF (双模态基线) 等模型的实现。
-*   详细的评估指标和结果，建立了强大的基线。
+**Key Features:**
+*   The first tri-modal dataset (RGB, Thermal Infrared, Event Camera) specifically for anti-UAV detection.
+*   Systematically captures and preserves event data streams of varying quality, from dense and clear to sparse and noisy, closely reflecting real-world application scenarios and providing a critical resource for developing event-aware and robust detection algorithms.
+*   Contains 1,060 synchronized image triplets covering diverse complex scenarios (e.g., high-altitude small targets, low-light conditions, background interference) and UAV types.
+*   Proposes ATMF-Net, an adaptive tri-modal fusion network that dynamically adjusts the contribution of event data based on its real-time reliability.
+*   Provides implementations for ATMF-Net, LW-MoESGF (dual-modal baseline), and other models.
+*   Detailed evaluation metrics and results, establishing strong baselines.
 
-## 📸 数据集: Tri-Modal Anti-UAV
+## 📸 Dataset: Tri-Modal Anti-UAV
 
-### 数据概览
-**Tri-Modal Anti-UAV** 数据集是专门为反无人机研究策划的新型三模态基准。它包含同步的可见光（RGB）、热红外（T）和基于事件（E）的数据流。
+### Data Overview
+The **Tri-Modal Anti-UAV** dataset is a novel tri-modal benchmark specifically curated for anti-UAV research. It comprises synchronized Visible (RGB), Thermal Infrared (T), and Event-based (E) data streams.
 
-### 数据采集与处理
-**数据采集**:
-*   数据集共包含1,060组标注图像集（855组用于训练，205组用于测试）。
-*   使用专用传感器采集各模态数据：传统RGB相机、热红外相机和DAVIS346事件传感器。
-*   无人机平台包括大疆Mini 3和大疆Mavic 3 Pro型号，每场景无人机数量从1到3不等。
-*   数据采集覆盖广泛的环境条件：天气变化（晴天到阴天）、一天中的不同时段。无人机飞行剖面多样，高度从近地面到数百米，并从多个相机视角捕获。
-*   操作环境多样化，包括复杂的城市环境、开阔草地、茂密森林、湖面、无遮挡高空和山麓地形。
-*   特别关注并保留了从信息丰富、清晰的事件到稀疏、噪声大的事件等各种质量水平的事件数据。
+### Data Collection and Processing
+**Data Collection**:
+*   The dataset contains a total of 1,060 annotated image sets (855 for training, 205 for testing).
+*   Data for each modality were collected using dedicated sensors: a conventional RGB camera, a thermal infrared camera, and a DAVIS346 event sensor.
+*   UAV platforms include DJI Mini 3 and DJI Mavic 3 Pro models, with the number of UAVs per scene ranging from 1 to 3.
+*   Data collection covers a wide range of environmental conditions: weather variations (sunny to cloudy), different times of day. UAV flight profiles are diverse, with altitudes from near-ground to hundreds of meters, captured from multiple camera perspectives.
+*   Operating environments are varied, including complex urban settings, open grasslands, dense forests, lake surfaces, unobstructed high altitudes, and foothill terrains.
+*   Special attention was paid to preserving event data of varying quality levels, from information-rich, clear events to sparse, noisy ones.
 
-**数据处理与标注**:
-*   **事件数据处理**: 将事件相机产生的原始异步事件流在20毫秒的固定时间窗口内累积，生成事件帧，以平衡运动模糊和信息密度。
-*   **多模态对齐**: 鉴于传感器规格（分辨率、视场角）和物理布置的差异，采用基于特征点的配准技术将RGB和事件帧对齐到热红外模态的坐标系（热红外具有最高原始分辨率）。应用仿射变换矩阵，确保包含无人机的区域在三个模态间空间一致。采用“弱对齐”策略，即不强制标注边界框内无人机的严格像素级对应，也允许背景区域弱对齐，旨在鼓励开发对轻微空间不一致性不敏感的鲁棒融合机制。
-*   **数据标注**: 所有数据均使用LabelImg以YOLO格式进行标注。标注在通过对齐后的三模态数据进行像素级融合创建的图像上进行，这些标注可直接转移到配准后的RGB、IR和事件数据帧。
+**Data Processing and Annotation**:
+*   **Event Data Processing**: Raw asynchronous event streams from the event camera are accumulated over fixed 20ms time windows to generate event frames, balancing motion blur and information density.
+*   **Multi-modal Alignment**: Given differences in sensor specifications (resolution, field of view) and physical arrangement, a feature-point-based registration technique is employed to align RGB and event frames to the coordinate system of the thermal modality (which has the highest native resolution). An affine transformation matrix is applied to ensure that regions containing UAVs are spatially consistent across the three modalities. A "weak alignment" strategy is adopted, meaning it does not enforce strict pixel-level correspondence of UAVs within bounding boxes and also allows for weak alignment of background regions, aiming to encourage the development of robust fusion mechanisms insensitive to slight spatial inconsistencies.
+*   **Data Annotation**: All data were annotated in YOLO format using LabelImg. Annotations were made on images created by pixel-level fusion of the aligned tri-modal data, and these annotations can be directly transferred to the registered RGB, IR, and event data frames.
 
+### Dataset Statistics
+**Table: Key Statistics of the Tri-Modal Anti-UAV Dataset**
+| Attribute                             | Proportion (Instances) |
+|---------------------------------------|------------------------|
+| Small Targets (e.g., area < 8x8 pixels) | 7.96%                  |
+| Low-light/Extreme Light Scenarios     | 8.92%                  |
+| High-Quality Event Data               | 6.94%                  |
+| Complex Background Interference       | 23.2%                  |
 
-### 数据集统计
-**表：Tri-Modal Anti-UAV 数据集关键统计**
-| 属性                                  | 占比 (实例) |
-|---------------------------------------|-----------------|
-| 小目标 (例如，面积 < 8x8 像素)         | 7.96%           |
-| 低光照/极端光照场景                     | 8.92%           |
-| 高质量事件数据                          | 6.94%           |
-| 复杂背景干扰                          | 23.2%           |
+### Scene Showcase
+The dataset includes a variety of challenging scenarios.
 
-### 场景展示
-数据集中包含了多种具有挑战性的场景。
-
-**数据集样本概览:**
+**Dataset Sample Overview:**
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-49-42.png?raw=true" width="1000" alt="Dataset Samples">
-  <br/><em>图注：Tri-Modal Anti-UAV 数据集样本图像。目标用红色框标出。顶行：RGB模态；中间行：红外热成像模态；底行：事件模态，展示了多样性的事件数据质量 (对应论文 Figure 1)。</em>
+  <br/><em>Figure: Sample images from the Tri-Modal Anti-UAV dataset. Targets are marked with red boxes. Top row: RGB modality; Middle row: Thermal Infrared modality; Bottom row: Event modality, showcasing the diversity of event data quality (Corresponds to Figure 1 in the paper).</em>
 </div>
 
-**各种质量的事件数据示例:**
+**Examples of Various Quality Event Data:**
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/1415f24196421d9e56c68916e871d3a260d8debc/images/Screenshot2025-06-01_18-39-12.png?raw=true" width="1000" alt="Event Data Quality Examples">
-  <br/><em>图注：事件模态数据质量的多样性展示，数据集包含各种质量的数据，也包含噪声，无信息的情况。</em>
+  <br/><em>Figure: Demonstration of the diversity in event modality data quality. The dataset includes data of various qualities, including noisy and uninformative cases.</em>
 </div>
 
-**多样化拍摄场景 (以红外模态展示):**
+**Diverse Capture Scenes (Shown in Infrared Modality):**
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/7821aac26e95be05f95116f40abd9d082f66017c/images/Screenshot2025-06-01_18-57-35.png?raw=true" width="1000" alt="Diverse Scenes IR">
-  <br/><em>图注：数据集中多样化的拍摄场景（以红外模态展示部分样例）。</em>
+  <br/><em>Figure: Diverse capture scenes in the dataset (some examples shown in the infrared modality).</em>
 </div>
 
-**其他关键场景类型包括:**
-*   高空小目标
-*   弱光照环境下的无人机
-*   复杂背景（如树枝、建筑物）干扰下的无人机
-*   快速移动的无人机
+**Other key scenario types include:**
+*   High-altitude small targets
+*   UAVs in low-light environments
+*   UAVs with complex background interference (e.g., tree branches, buildings)
+*   Fast-moving UAVs
 
-### 数据下载
-您可以从以下链接下载完整的数据集：
+### Data Download
+You can download the complete dataset from the following link:
 *   **Google Drive**: [https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link](https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link)
 
-数据集采用YOLO标注格式。
+The dataset uses YOLO annotation format.
 
-## 🔧 图像对齐方式
+## 🔧 Image Alignment
 
-由于不同传感器的固有差异（如分辨率和视场角）及其固定的非共处物理排列，我们采用基于特征点的配准技术，将RGB和事件帧与热红外模态的坐标系对齐。估算并应用仿射变换矩阵，主要确保包含无人机的区域在三个模态中空间一致。我们采用“弱对齐”策略，有意不强制标注边界框内无人机的严格像素级对应，以鼓励开发对微小空间不一致性更鲁棒的融合机制。
+Due to inherent differences in sensors (such as resolution and field of view) and their fixed, non-co-located physical arrangement, we employ a feature-point-based registration technique to align RGB and event frames with the coordinate system of the thermal infrared modality. An estimated affine transformation matrix is applied, primarily ensuring that regions containing UAVs are spatially consistent across the three modalities. We adopt a "weak alignment" strategy, intentionally not enforcing strict pixel-level correspondence of UAVs within annotated bounding boxes, to encourage the development of fusion mechanisms more robust to minor spatial inconsistencies.
 
-**对齐前图像示例 (RGB对齐红外，绿点为特征点):**
+**Example of Images Before Alignment (RGB aligned to Infrared, green dots are feature points):**
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-57-22.png?raw=true" width="800" alt="Image Alignment Before">
-  <br/><em>图注：对齐前图像（绿点表示对应特征点，这里以RGB对齐红外图像为例）。</em>
+  <br/><em>Figure: Images before alignment (green dots represent corresponding feature points, shown here for RGB to Infrared alignment as an example).</em>
 </div>
 
-**对齐后图像示例:**
+**Example of Images After Alignment:**
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-55-17.png?raw=true" width="800" alt="Image Alignment After">
-  <br/><em>图注：对齐后的图像示例，展示了目标区域在不同模态间的空间一致性。</em>
+  <br/><em>Figure: Example of aligned images, demonstrating spatial consistency of the target region across different modalities.</em>
 </div>
 
-对齐后的图像确保了目标区域在不同模态间的空间一致性，为后续的统一标注和有效多模态融合奠定了基础。
+Aligned images ensure spatial consistency of target regions across different modalities, laying the foundation for subsequent unified annotation and effective multi-modal fusion.
 
-## 🚀 模型与权重
+## 🚀 Models and Weights
 
 ### ATMF-Net
-我们提出的 ATMF-Net (Adaptive Tri-Modal Fusion Network) 是一种有效融合三模态信息的网络结构，专为无人机检测设计。其核心思想是根据事件模态的实时可靠性动态评估和调整其在融合过程中的贡献，从而在事件数据质量波动时保持检测的鲁棒性。
-*   **代码**: `./models/ATMF_Net/` (请替换为实际路径)
-*   ** (Best.pt) GDrive**: [https://drive.google.com/file/d/1xsx8g-1wAIUPylxw0jj6pXMck-VM_JX7/view?usp=drive_link](https://drive.google.com/file/d/1xsx8g-1wAIUPylxw0jj6pXMck-VM_JX7/view?usp=drive_link)
-*   **预训练权重 yolov5.pt
-**ATMF-Net 网络架构图:**
+Our proposed ATMF-Net (Adaptive Tri-Modal Fusion Network) is an effective network structure for fusing tri-modal information, specifically designed for UAV detection. Its core idea is to dynamically evaluate and adjust the contribution of the event modality in the fusion process based on its real-time reliability, thereby maintaining detection robustness when event data quality fluctuates.
+*   **Code**: `./models/ATMF_Net/` (Please replace with the actual path if different)
+*   **Best Trained Weights (`best.pt`) GDrive**: [https://drive.google.com/file/d/1xsx8g-1wAIUPylxw0jj6pXMck-VM_JX7/view?usp=drive_link](https://drive.google.com/file/d/1xsx8g-1wAIUPylxw0jj6pXMck-VM_JX7/view?usp=drive_link)
+*   **Initial Backbone Weights**: Training often starts from standard pre-trained backbone weights (e.g., `yolov5l.pt` for a YOLOv5-Large based model). These are typically obtained from the original YOLOv5 repository or similar sources.
+
+**ATMF-Net Network Architecture Diagram:**
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-48-55.png?raw=true" width="1200" alt="ATMF-Net Architecture">
-  <br/><em>图注：ATMF-Net 网络架构。右侧：整体融合路径（以RGB特征为例）。左侧：三模态融合专家（Tri-Modal Fusion Expert）的详细信息。关键组件包括事件可靠性评估器（ERE）和用于动态专家权重调整的MoE路由器。$\oplus$: 特征相加, $\otimes$: 加权融合 (对应论文 Figure 2)。</em>
+  <br/><em>Figure: ATMF-Net network architecture. Right: Overall fusion path (using RGB features as an example). Left: Details of the Tri-Modal Fusion Expert. Key components include the Event Reliability Estimator (ERE) and the MoE router for dynamic expert weight adjustment. $\oplus$: Feature addition, $\otimes$: Weighted fusion (Corresponds to Figure 2 in the paper).</em>
 </div>
 
-
-**Self-Guided Fusion (SGF) 模块结构图 (ATMF-Net组件):**
+**Self-Guided Fusion (SGF) Module Structure Diagram (ATMF-Net Component):**
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_17-04-09.png?raw=true" width="400" alt="Self-Guided Fusion Architecture">
-  <br/><em>图注：Self-Guided Fusion (SGF) 模块的详细结构，它是 ATMF-Net 中的一个关键组件。</em>
+  <br/><em>Figure: Detailed structure of the Self-Guided Fusion (SGF) module, a key component in ATMF-Net.</em>
 </div>
 
-### 其他实验资源
-*   **其他论文涉及到实验代码与权重 GDrive**: [https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link](https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link)
-    *   此链接包含了论文中进行对比实验或消融研究所使用的其他模型代码和/或权重文件。
+### LW-MoESGF (RGB+IR)
+As a comparative baseline, we also provide an implementation of the LW-MoESGF (Lightweight Mixture-of-Experts with Self-Guided Fusion) model, an efficient RGB-IR dual-modal fusion model. This model also utilizes a Mixture-of-Experts framework and Self-Guided Fusion principles.
+*   **Code**: `./models/LW_MoESGF/` (Please replace with the actual path if different)
+*   **Pre-trained Weights**: `[Link or instructions for LW-MoESGF weights, if available]`
 
-## 📊 主要结果
+**(Conceptual) LW-MoESGF Network Architecture Diagram (Refer to Paper Figure 3):**
+*A diagram similar to the ATMF-Net one, but for RGB+IR fusion, would typically be here, showcasing its specific MoE and SGF integration. Please refer to Figure 3 in our paper for the detailed architecture of LW-MoESGF.*
 
-### 表格
+### Other Experimental Resources
+*   **Other Paper-related Experimental Code and Weights GDrive**: [https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link](https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link)
+    *   This link contains other model codes and/or pre-trained weights used for comparative experiments or ablation studies in the paper. Please follow the instructions within the archive.
 
-**表1: 自适应三模态融合的有效性 (Effectiveness of adaptive tri-modal fusion)**
-| 方法                                      | mAP$_{50}$ (%) |
+## 📊 Main Results
+
+### Tables
+
+**Table 1: Effectiveness of adaptive tri-modal fusion**
+| Method                                      | mAP$_{50}$ (%) |
 |-------------------------------------------|----------------|
 | LW-MoESGF (RGB+IR)                        | 87.4           |
 | Tri-Modal (Non-adaptive)                  | 87.8           |
 | **ATMF-Net (Adaptive)**                   | **89.9**       |
 
-**表2: Tri-Modal Anti-UAV 测试集上单模态检测性能 (Performance of single-modality detection)**
-| 模态                   | mAP$_{50}$ (%) | mAP (%) |
+**Table 2: Performance of single-modality detection on the Tri-Modal Anti-UAV test set**
+| Modality                   | mAP$_{50}$ (%) | mAP (%) |
 |------------------------|----------------|---------|
 | YOLOv5l (RGB-only)     | 65.5           | 20.2    |
 | YOLOv5l (IR-only)      | **78.8**       | **27.2**|
 | YOLOv5l (Event-only)   | 9.76           | 3.57    |
 
-**表3: RGB-IR 双模态融合方法的性能和效率比较 (Performance and efficiency comparison of RGB-IR dual-modal fusion methods)**
-| 方法                      | 参数量 (M) | FLOPs (G) | mAP$_{50}$ (%) |
-|---------------------------|------------|-----------|----------------|
-| 最佳单模态 (IR)           | **46.5**   | **109**   | 78.8           |
+**Table 3: Performance and efficiency comparison of RGB-IR dual-modal fusion methods**
+| Method                      | Parameters (M) | FLOPs (G) | mAP$_{50}$ (%) |
+|---------------------------|----------------|-----------|----------------|
+| Best Single Modality (IR) | **46.5**       | **109**   | 78.8           |
 | CFT (RGB+IR) [Li et al., 2021] | 206        | 224       | 86.6           |
 | LW-MoESGF (RGB+IR)        | 76.2       | 192       | **87.4**       |
 *CFT citation: Qingyun Li, Filepe R. C. Encarnacao, and Aljosa Osep. 2021. Cross-modality Feature Transformer for Unsupervised Object Tracking. arXiv:2112.02009.*
 
-### 图示
+### Figures
 
-#### 检测结果定性对比
-**事件模态效果与检测结果对比图:**
+#### Qualitative Comparison of Detection Results
+**Comparison of Event Modality Effects and Detection Results:**
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-49-24.png?raw=true" width="600" alt="Qualitative Results Comparison">
-  <br/><em>图注：Tri-Modal Anti-UAV 上的定性比较。从左到右：RGB、IR 和事件输入。图像上叠加显示：真实标签 (Ground Truth, 红色框)，LW-MoESGF (RGB+IR, 绿色框) 的检测结果，以及我们的 ATMF-Net (蓝色框) 的检测结果 (对应论文 Figure 4)。</em>
+  <br/><em>Figure: Qualitative comparison on Tri-Modal Anti-UAV. From left to right: RGB, IR, and Event inputs. Overlaid on images: Ground Truth (red box), detection results from LW-MoESGF (RGB+IR, green box), and our ATMF-Net (blue box) (Corresponds to Figure 4 in the paper).</em>
 </div>
 
+### Dataset Supplementary Notes
+It should be noted that in the dataset, a small number of images, due to factors such as being captured in close-range scenarios, inherent viewing angle differences between sensors, and pixel resolution disparities, may have areas without pixel information (uniformly filled with black or white) in their peripheral regions after affine transformation alignment. Coupled with the inherent limitations of the affine transformation alignment method itself, there might be some visual discrepancies between pre- and post-alignment images.
 
+We chose to retain these samples rather than discard them because:
+1.  **Real-world Scenario Simulation**: Such situations can occur in practical multi-sensor fusion applications; retaining them helps models learn to cope with such imperfect alignments.
+2.  **Robustness Enhancement**: These visual differences, introduced by alignment but with largely unchanged content information, can be considered a form of data augmentation or interference. We believe this can, in turn, encourage the model to learn more essential and robust features, improving its generalization capabilities in complex real-world environments.
 
-### 对齐补充说明
-需要注意的是，在数据集中，少部分图像由于采集于近距离场景、不同传感器间固有的视角差异以及像素分辨率差异等因素的综合影响，在经过仿射变换对齐后，其边缘区域可能出现部分无有效像素信息的区域。这些区域我们统一用黑色或白色进行了填充，加之受限于仿射变换对齐方法自身缺陷，对齐前后的图像在视觉上可能存在一定的差异。
-
-我们选择保留这些样本而非丢弃，原因在于：
-1.  **真实场景模拟**：这种情况在实际多传感器融合应用中是可能发生的，保留它们有助于模型学习应对此类不完美对齐。
-2.  **鲁棒性提升**：这些由对齐引入的、内容信息基本不变的视觉差异，可以视为一种数据增强或干扰。我们认为，这反而能够促使模型学习到更本质、更鲁棒的特征，提升其在复杂真实环境下的泛化能力。
-
-下图展示了一个此类对齐后图像出现边缘填充的示例：
+The following image shows an example of such an aligned image with edge padding:
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/34fabfae1f61173924738877dea5e85addc5423b/images/Screenshot2025-06-01_19-31-01.png?raw=true" width="400" alt="Alignment Artifact Example">
-  <br/><em>图注：对齐后图像边缘可能出现无像素信息（黑色填充）的示例。</em>
+  <br/><em>Figure: Example of an aligned image where edge regions might lack pixel information (black padding).</em>
 </div>
 
-## 🛠️ 安装
+## 🛠️ Installation
 
-### 环境要求
+### Environment Requirements
 *   Python >= 3.8
 *   PyTorch >= 1.7.0
-*   CUDA [11.3] (如果使用GPU)
-*   其他依赖请参见 `requirements.txt`
+*   CUDA [11.3] (if using GPU)
+*   Other dependencies are listed in `requirements.txt`
 
-### 安装步骤
+### Installation Steps
 
-1.  **克隆本仓库:**
+1.  **Clone this repository:**
     ```bash
     git clone https://github.com/eulerbaby123/Tri-Modal-Anti-UAV.git
     cd Tri-Modal-Anti-UAV
     ```
 
-2.  **创建并激活虚拟环境 (推荐):**
+2.  **Create and activate a virtual environment (recommended):**
     ```bash
     python -m venv venv
     # Windows
@@ -260,33 +264,52 @@ UAV detectors.
     source venv/bin/activate
     ```
 
-3.  **安装依赖:**
+3.  **Install dependencies:**
     ```bash
     pip install -r requirements.txt
- 
+    ```
+    If you encounter issues installing `pycocotools`, please refer to its official documentation. Windows users might need to install Microsoft C++ Build Tools beforehand.
 
-## ⚙️ 使用
+### Key Dependencies
+*   `torch`
+*   `torchvision`
+*   `numpy`
+*   `opencv-python`
+*   `matplotlib`
+*   `pyyaml`
+*   `tqdm`
+*   `pycocotools` (for evaluation)
 
-### 数据准备
-1.  下载 Tri-Modal Anti-UAV 数据集 (链接见 [数据下载](#数据下载) 部分)。
-2.  将数据集解压并组织成如下结构 (或根据您的配置文件进行调整):
+## ⚙️ Usage
+
+### Data Preparation
+1.  Download the Tri-Modal Anti-UAV dataset (link in the [Data Download](#data-download) section).
+2.  Extract the dataset and organize it as follows (or adjust according to your configuration files):
     ```
     Tri-Modal-Anti-UAV/
-    ├── images/
-    │  
-    ├── labels/
-    │  
-    └──train_rgb.txt
-    └──train_ir.txt
-    └──train_event.txt
-    └──val_rgb.txt
-    └──val_ir.txt
-    └──val_event.txt
+    ├── images/       # Contains subdirectories for rgb, ir, event images for train/val splits
+    │   ├── train/
+    │   │   ├── rgb/
+    │   │   ├── ir/
+    │   │   └── event/
+    │   └── val/
+    │       ├── rgb/
+    │       ├── ir/
+    │       └── event/
+    ├── labels/       # Contains corresponding YOLO format label .txt files for train/val splits
+    │   ├── train/
+    │   └── val/
+    └── train_rgb.txt   # List of training RGB image paths
+    └── train_ir.txt    # List of training IR image paths
+    └── train_event.txt # List of training Event image paths
+    └── val_rgb.txt     # List of validation RGB image paths
+    └── val_ir.txt      # List of validation IR image paths
+    └── val_event.txt   # List of validation Event image paths
     ```
+    *Note: The `.txt` files (e.g., `train_rgb.txt`) should list the paths to the respective image files relative to the dataset root or an appropriate base path defined in your data configuration scripts/files (e.g., `dataset.yaml` if used).*
 
-
-### 训练
-使用以下命令开始测试,训练(根据实际需求可在脚本文件修改参数):
+### Training
+Use the following command to start testing and training (parameters can be modified within the script files as per actual requirements):
 ```bash
-python test.py
-python train.py
+python train.py 
+# Check train.py or associated config files for parameters like model config, data config, weights, batch size, epochs, device, etc.
