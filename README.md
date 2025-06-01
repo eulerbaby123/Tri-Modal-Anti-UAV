@@ -149,13 +149,13 @@ UAV detectors.
 
 **对齐前图像示例 (RGB对齐红外，绿点为特征点):**
 <div align="center">
-  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-57-22.png?raw=true" width="600" alt="Image Alignment Before">
+  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-57-22.png?raw=true" width="800" alt="Image Alignment Before">
   <br/><em>图注：对齐前图像（绿点表示对应特征点，这里以RGB对齐红外图像为例）。</em>
 </div>
 
 **对齐后图像示例:**
 <div align="center">
-  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-55-17.png?raw=true" width="600" alt="Image Alignment After">
+  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-55-17.png?raw=true" width="800" alt="Image Alignment After">
   <br/><em>图注：对齐后的图像示例，展示了目标区域在不同模态间的空间一致性。</em>
 </div>
 
@@ -177,7 +177,7 @@ UAV detectors.
 
 **Self-Guided Fusion (SGF) 模块结构图 (ATMF-Net组件):**
 <div align="center">
-  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_17-04-09.png?raw=true" width="600" alt="Self-Guided Fusion Architecture">
+  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_17-04-09.png?raw=true" width="400" alt="Self-Guided Fusion Architecture">
   <br/><em>图注：Self-Guided Fusion (SGF) 模块的详细结构，它是 ATMF-Net 中的一个关键组件。</em>
 </div>
 
@@ -231,7 +231,7 @@ UAV detectors.
 
 下图展示了一个此类对齐后图像出现边缘填充的示例：
 <div align="center">
-  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/34fabfae1f61173924738877dea5e85addc5423b/images/Screenshot2025-06-01_19-31-01.png?raw=true" width="600" alt="Alignment Artifact Example">
+  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/34fabfae1f61173924738877dea5e85addc5423b/images/Screenshot2025-06-01_19-31-01.png?raw=true" width="400" alt="Alignment Artifact Example">
   <br/><em>图注：对齐后图像边缘可能出现无像素信息（黑色填充）的示例。</em>
 </div>
 
