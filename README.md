@@ -7,7 +7,7 @@ Welcome to the **Tri-Modal Anti-UAV** project! This repository contains the offi
 
 This project aims to provide a comprehensive tri-modal (RGB, Thermal, Event) anti-UAV detection benchmark dataset, **Tri-Modal Anti-UAV**, and proposes an effective adaptive fusion network, **ATMF-Net**, for UAV object detection.
 
-## ⚖️ Ethical Considerations and Privacy
+## ⚖️ Ethical Considerations and Privacy and Licencing
 
 All data in this dataset were collected in public or controlled areas and do not involve personal privacy information. Any persons appearing in the images (if any) have been blurred or otherwise de-identified. All code, datasets, and related resources provided in this project are permitted by default for any non-commercial use in scientific research, education, or personal experiments, without requiring special authorization from the authors. For commercial applications, please contact the authors.
 
