@@ -187,21 +187,21 @@ Our proposed ATMF-Net (Adaptive Tri-Modal Fusion Network) is an effective networ
 ### Tables
 
 **Table 1: Effectiveness of adaptive tri-modal fusion**
-| Method                                      | mAP$_{50}$ (%) |
+| Method                                      | mAP<sub>50</sub> (%)  |
 |-------------------------------------------|----------------|
 | LW-MoESGF (RGB+IR)                        | 87.4           |
 | Tri-Modal (Non-adaptive)                  | 87.8           |
 | **ATMF-Net (Adaptive)**                   | **89.9**       |
 
 **Table 2: Performance of single-modality detection on the Tri-Modal Anti-UAV test set**
-| Modality                   | mAP$_{50}$ (%) | mAP (%) |
+| Modality                   | mAP<sub>50</sub> (%)  | mAP (%) |
 |------------------------|----------------|---------|
 | YOLOv5l (RGB-only)     | 65.5           | 20.2    |
 | YOLOv5l (IR-only)      | **78.8**       | **27.2**|
 | YOLOv5l (Event-only)   | 9.76           | 3.57    |
 
 **Table 3: Performance and efficiency comparison of RGB-IR dual-modal fusion methods**
-| Method                      | Parameters (M) | FLOPs (G) | mAP$_{50}$ (%) |
+| Method                      | Parameters (M) | FLOPs (G) | mAP<sub>50</sub> (%)  |
 |---------------------------|----------------|-----------|----------------|
 | Best Single Modality (IR) | **46.5**       | **109**   | 78.8           |
 | CFT (RGB+IR) [Li et al., 2021] | 206        | 224       | 86.6           |
