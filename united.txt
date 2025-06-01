@@ -1,0 +1,1 @@
+trainexp11   600  gatescore 0.4   test19  0.897    
