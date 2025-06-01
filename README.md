@@ -161,39 +161,29 @@ UAV detectors.
 
 对齐后的图像确保了目标区域在不同模态间的空间一致性，为后续的统一标注和有效多模态融合奠定了基础。
 
-## 🚀 模型与预训练权重
+## 🚀 模型与权重
 
 ### ATMF-Net
 我们提出的 ATMF-Net (Adaptive Tri-Modal Fusion Network) 是一种有效融合三模态信息的网络结构，专为无人机检测设计。其核心思想是根据事件模态的实时可靠性动态评估和调整其在融合过程中的贡献，从而在事件数据质量波动时保持检测的鲁棒性。
 *   **代码**: `./models/ATMF_Net/` (请替换为实际路径)
-*   **预训练权重 (Best) GDrive**: [https://drive.google.com/file/d/1xsx8g-1wAIUPylxw0jj6pXMck-VM_JX7/view?usp=drive_link](https://drive.google.com/file/d/1xsx8g-1wAIUPylxw0jj6pXMck-VM_JX7/view?usp=drive_link)
-
+*   ** (Best.pt) GDrive**: [https://drive.google.com/file/d/1xsx8g-1wAIUPylxw0jj6pXMck-VM_JX7/view?usp=drive_link](https://drive.google.com/file/d/1xsx8g-1wAIUPylxw0jj6pXMck-VM_JX7/view?usp=drive_link)
+*   **预训练权重 yolov5.pt
 **ATMF-Net 网络架构图:**
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-48-55.png?raw=true" width="1200" alt="ATMF-Net Architecture">
   <br/><em>图注：ATMF-Net 网络架构。右侧：整体融合路径（以RGB特征为例）。左侧：三模态融合专家（Tri-Modal Fusion Expert）的详细信息。关键组件包括事件可靠性评估器（ERE）和用于动态专家权重调整的MoE路由器。$\oplus$: 特征相加, $\otimes$: 加权融合 (对应论文 Figure 2)。</em>
 </div>
 
-### LW-MoESGF (RGB+IR)
-作为对比基线，我们还提供了 LW-MoESGF (Lightweight Mixture-of-Experts with Self-Guided Fusion) 模型的实现，这是一个高效的RGB-IR双模态融合模型。
-*   **代码**: `./models/LW_MoESGF/` (请替换为实际路径)
-*   **预训练权重**: `[LW-MoESGF权重下载链接或说明]`
 
-**LW-MoESGF 网络架构图:**
-<div align="center">
-  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-49-09.png?raw=true" width="600" alt="LW-MoESGF Architecture">
-  <br/><em>图注：LW-MoESGF 网络架构。左侧：双模态融合专家（Dual-Modal Fusion Expert）的详细信息，包括自引导融合（SGF）和细化模块。右侧：整体结构。$\oplus$: 特征相加, $\otimes$: 加权融合 (对应论文 Figure 3)。</em>
-</div>
-
-**Self-Guided Fusion (SGF) 模块结构图 (LW-MoESGF组件):**
+**Self-Guided Fusion (SGF) 模块结构图 (ATMF-Net组件):**
 <div align="center">
   <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_17-04-09.png?raw=true" width="600" alt="Self-Guided Fusion Architecture">
-  <br/><em>图注：Self-Guided Fusion (SGF) 模块的详细结构，它是 LW-MoESGF 中的一个关键组件。</em>
+  <br/><em>图注：Self-Guided Fusion (SGF) 模块的详细结构，它是 ATMF-Net 中的一个关键组件。</em>
 </div>
 
 ### 其他实验资源
-*   **其他论文实验代码与权重 GDrive**: [https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link](https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link)
-    *   此链接包含了论文中进行对比实验或消融研究所使用的其他模型代码和/或预训练权重。请根据压缩包内说明使用。
+*   **其他论文涉及到实验代码与权重 GDrive**: [https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link](https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link)
+    *   此链接包含了论文中进行对比实验或消融研究所使用的其他模型代码和/或权重文件。
 
 ## 📊 主要结果
 
