@@ -1,26 +1,28 @@
 # uavRGBTE: Tri-Modal Anti-UAV Dataset and ATMF-Net
 
-[![Paper](https://img.shields.io/badge/Paper-ARXIV_LINK_OR_DOI-B31B1B.svg)]([请在此处插入论文链接])
+[![Paper](https://img.shields.io/badge/Paper-ACMMM'25_PLACEHOLDER-B31B1B.svg)](YOUR_PAPER_LINK_HERE)
 [![Dataset](https://img.shields.io/badge/Dataset-Download-blue.svg)](https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link)
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-blue.svg)](https://github.com/eulerbaby123/Tri-Modal-Anti-UAV)
 
-欢迎来到 **uavRGBTE** 项目！这是论文 **"Tri-Modal Anti-UAV: A Comprehensive Benchmarking Dataset for UAV-Targeted Detection"** 的官方代码和数据集。
+欢迎来到 **uavRGBTE** 项目！这是论文 **"Adaptive Tri-Modal Fusion for Robust Anti-UAV Detection with Event Fluctuation Awareness"** (暂定名，请根据实际论文题目修改) 的官方代码和数据集。
 
-本项目旨在提供一个全面的三模态（RGB、Thermal、Event）反无人机检测基准数据集，并提出了一种有效的融合网络 ATMF-Net 用于无人机目标检测。
+本项目旨在提供一个全面的三模态（RGB、Thermal、Event）反无人机检测基准数据集 **Tri-Modal Anti-UAV**，并提出了一种有效的自适应融合网络 **ATMF-Net** 用于无人机目标检测。
 
 ## 目录
 
 - [uavRGBTE: Tri-Modal Anti-UAV Dataset and ATMF-Net](#uavrgbte-tri-modal-anti-uav-dataset-and-atmf-net)
   - [目录](#目录)
   - [📝 简介](#-简介)
-  - [📸 数据集](#-数据集)
+  - [📸 数据集: Tri-Modal Anti-UAV](#-数据集-tri-modal-anti-uav)
     - [数据概览](#数据概览)
+    - [数据采集与处理](#数据采集与处理)
     - [数据集统计](#数据集统计)
     - [场景展示](#场景展示)
     - [数据下载](#数据下载)
   - [🔧 图像对齐方式](#-图像对齐方式)
   - [🚀 模型与权重](#-模型与权重)
     - [ATMF-Net](#atmf-net)
-    - [其他模型 (可选)](#其他模型-可选)
+    - [LW-MoESGF (RGB+IR)](#lw-moesgf-rgbir)
   - [📊 主要结果](#-主要结果)
     - [表格](#表格)
     - [图示](#图示)
@@ -66,15 +68,30 @@ UAV detectors.
 
 **主要特性:**
 *   首个针对反无人机检测的三模态数据集（RGB、红外热成像、事件相机数据）。
-*   保留各种质量的事件模态，更加贴近实际，也为事件模态平衡方法的开发提供了基础。
-*   包含多种复杂场景和无人机类型。
-*   提供了 ATMF-Net 等基线模型的实现。
-*   详细的评估指标和结果。
+*   系统性地捕获并保留了从密集清晰到稀疏嘈杂的各种质量的事件数据流，更贴近真实应用场景，为开发事件感知和鲁棒的检测算法提供了关键资源。
+*   包含1,060组同步图像三元组，覆盖多种复杂场景（如高空小目标、弱光照、背景干扰）和无人机类型。
+*   提出了 ATMF-Net，一种根据事件数据实时可靠性动态调整其贡献的自适应三模态融合网络。
+*   提供了 ATMF-Net 及 LW-MoESGF (双模态基线) 等模型的实现。
+*   详细的评估指标和结果，建立了强大的基线。
 
-## 📸 数据集
+## 📸 数据集: Tri-Modal Anti-UAV
 
 ### 数据概览
-我们的数据集 **"Tri-Modal Anti-UAV Dataset"** 是专门为无人机目标检测任务构建的。它包含了同步采集的 RGB 图像、红外热成像图像以及事件相机数据，共计 1,060 组同步图像三元组。
+**Tri-Modal Anti-UAV** 数据集是专门为反无人机研究策划的新型三模态基准。它包含同步的可见光（RGB）、热红外（T）和基于事件（E）的数据流。
+
+### 数据采集与处理
+**数据采集**:
+*   数据集共包含1,060组标注图像集（855组用于训练，205组用于测试）。
+*   使用专用传感器采集各模态数据：传统RGB相机、热红外相机和DAVIS346事件传感器。
+*   无人机平台包括大疆Mini 3和大疆Mavic 3 Pro型号，每场景无人机数量从1到3不等。
+*   数据采集覆盖广泛的环境条件：天气变化（晴天到阴天）、一天中的不同时段。无人机飞行剖面多样，高度从近地面到数百米，并从多个相机视角捕获。
+*   操作环境多样化，包括复杂的城市环境、开阔草地、茂密森林、湖面、无遮挡高空和山麓地形。
+*   特别关注并保留了从信息丰富、清晰的事件到稀疏、噪声大的事件等各种质量水平的事件数据。
+
+**数据处理与标注**:
+*   **事件数据处理**: 将事件相机产生的原始异步事件流在20毫秒的固定时间窗口内累积，生成事件帧，以平衡运动模糊和信息密度。
+*   **多模态对齐**: 鉴于传感器规格（分辨率、视场角）和物理布置的差异，采用基于特征点的配准技术将RGB和事件帧对齐到热红外模态的坐标系（热红外具有最高原始分辨率）。应用仿射变换矩阵，确保包含无人机的区域在三个模态间空间一致。采用“弱对齐”策略，即不强制标注边界框内无人机的严格像素级对应，旨在鼓励开发对轻微空间不一致性不敏感的鲁棒融合机制。
+*   **数据标注**: 所有数据均使用LabelImg以YOLO格式进行标注。标注在通过对齐后的三模态数据进行像素级融合创建的图像上进行，这些标注可直接转移到配准后的RGB、IR和事件数据帧。
 
 ### 数据集统计
 **表：Tri-Modal Anti-UAV 数据集关键统计**
@@ -86,106 +103,109 @@ UAV detectors.
 | 复杂背景干扰                          | 23.2%           |
 
 ### 场景展示
-数据集中包含了多种具有挑战性的场景。下图展示了部分样本：
+数据集中包含了多种具有挑战性的场景。
 
-<!-- 请将 datademo.pdf 转换为 .png 或 .jpg格式, 存放到例如 assets/images/ 目录下, 并更新下面的路径 -->
-![Dataset Samples](assets/images/datademo.png)
-**图注：** Tri-Modal Anti-UAV 数据集样本图像。目标用红色框标出。顶行：RGB模态；中间行：红外热成像模态；底行：事件模态，展示了多样性的事件数据质量。
+**数据集样本概览:**
+![Dataset Samples](assets/images/Screenshot2025-06-01_16-49-42.png)
+**图注：** Tri-Modal Anti-UAV 数据集样本图像。目标用红色框标出。顶行：RGB模态；中间行：红外热成像模态；底行：事件模态，展示了多样性的事件数据质量 (对应论文 Figure 1)。
 
-[您可以继续列出并描述其他关键场景，例如：]
-*   场景1：高空小目标
-*   场景2：弱光照环境
-*   场景3：复杂背景干扰下的无人机
-*   ...
+**各种质量的事件数据示例:**
+![Event Data Quality Examples](assets/images/Screenshot2025-06-01_18-39-12.png)
+**图注：** 事件模态数据质量的多样性展示，从左到右质量递减。
+
+**多样化拍摄场景 (以红外模态展示):**
+![Diverse Scenes IR](assets/images/Screenshot2025-06-01_18-57-35.png)
+**图注：** 数据集中多样化的拍摄场景（以红外模态展示部分样例）。
+
+**其他关键场景类型包括:**
+*   高空小目标
+*   弱光照环境下的无人机
+*   复杂背景（如树枝、建筑物）干扰下的无人机
+*   快速移动的无人机
 
 ### 数据下载
 您可以从以下链接下载完整的数据集：
 *   **Google Drive**: [https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link](https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link)
 
 数据集采用YOLO标注格式。
-[如果数据集有特定的组织结构或更详细的标注格式说明，请在此处添加。]
 
 ## 🔧 图像对齐方式
 
-我们采用了 [基于特征点的仿射变换] 的方式来确保不同模态图像之间的目标弱对齐。下图展示了我们的对齐流程/效果：
+由于不同传感器的固有差异（如分辨率和视场角）及其固定的非共处物理排列，我们采用基于特征点的配准技术，将RGB和事件帧与热红外模态的坐标系对齐。估算并应用仿射变换矩阵，主要确保包含无人机的区域在三个模态中空间一致。我们采用“弱对齐”策略，有意不强制标注边界框内无人机的严格像素级对应，以鼓励开发对微小空间不一致性更鲁棒的融合机制。
 
-<!-- 请在此处插入图像对齐的示意图，例如：将其保存为 alignment_diagram.png 到 assets/images/ 目录 -->
-<!-- ![Image Alignment](assets/images/alignment_diagram.png) -->
-**图注：** [请描述图像对齐示意图内容，例如：RGB、热红外和事件数据帧的对齐示例。]
+下图展示了对齐前（使用特征点）的情况：
+![Image Alignment Diagram](assets/images/Screenshot2025-06-01_16-57-22.png)
+**图注：** 对齐前图像（绿点表示对应特征点，这里以RGB对齐红外图像为例）。
+
+对齐后的图像确保了目标区域在不同模态间的空间一致性，为后续的统一标注和有效多模态融合奠定了基础。
 
 ## 🚀 模型与预训练权重
 
 ### ATMF-Net
-我们提出的 ATMF-Net 是一种有效融合三模态信息的网络结构，专为无人机检测设计。其核心思想是根据事件模态的实时可靠性动态调整其贡献。
-*   **代码**: [请提供 ATMF-Net 代码的链接，例如：`./models/ATMF-Net/`]
-*   **预训练权重**: [请提供 ATMF-Net 权重文件的下载链接1]
+我们提出的 ATMF-Net (Adaptive Tri-Modal Fusion Network) 是一种有效融合三模态信息的网络结构，专为无人机检测设计。其核心思想是根据事件模态的实时可靠性动态评估和调整其在融合过程中的贡献，从而在事件数据质量波动时保持检测的鲁棒性。
+*   **代码**: `./models/ATMF_Net/` (请替换为实际路径)
+*   **预训练权重**: `[ATMF-Net权重下载链接或说明]` (例如: 可在 Release 页面找到)
 
 下图展示了 ATMF-Net 的网络架构：
-<!-- 请将 trimodal.pdf 转换为 .png 或 .jpg格式, 存放到例如 assets/images/ 目录下, 并更新下面的路径 -->
-![ATMF-Net Architecture](assets/images/trimodal_arch.png)
-**图注：** ATMF-Net 网络架构。右侧：整体融合路径（以RGB特征为例）。左侧：三模态融合专家（Tri-Modal Fusion Expert）的详细信息。关键组件包括事件可靠性评估器（ERE）和用于动态专家权重调整的MoE路由器。$\oplus$: 特征相加, $\otimes$: 加权融合。
+![ATMF-Net Architecture](assets/images/Screenshot2025-06-01_16-48-55.png)
+**图注：** ATMF-Net 网络架构。右侧：整体融合路径（以RGB特征为例）。左侧：三模态融合专家（Tri-Modal Fusion Expert）的详细信息。关键组件包括事件可靠性评估器（ERE）和用于动态专家权重调整的MoE路由器。$\oplus$: 特征相加, $\otimes$: 加权融合 (对应论文 Figure 2)。
 
-### 其他模型 (可选)
-[如果您在论文中对比了其他模型，或者提供了其他模型的实现，请在此处列出。例如 LW-MoESGF 模型。]
-
-**模型名称**: LW-MoESGF (RGB+IR)
-*   **代码**: [请提供 LW-MoESGF 模型代码的链接]
-*   **预训练权重**: [请提供 LW-MoESGF 模型权重文件的下载链接2]
+### LW-MoESGF (RGB+IR)
+作为对比基线，我们还提供了 LW-MoESGF (Lightweight Mixture-of-Experts with Self-Guided Fusion) 模型的实现，这是一个高效的RGB-IR双模态融合模型。
+*   **代码**: `./models/LW_MoESGF/` (请替换为实际路径)
+*   **预训练权重**: `[LW-MoESGF权重下载链接或说明]`
 
 下图展示了 LW-MoESGF 的网络架构：
-<!-- 请将 dualmodal.pdf 转换为 .png 或 .jpg格式, 存放到例如 assets/images/ 目录下, 并更新下面的路径 -->
-![LW-MoESGF Architecture](assets/images/dualmodal_arch.png)
-**图注：** LW-MoESGF 网络架构。左侧：双模态融合专家（Dual-Modal Fusion Expert）的详细信息，包括自引导融合（SGF）和细化模块。右侧：整体结构。$\oplus$: 特征相加, $\otimes$: 加权融合。
+![LW-MoESGF Architecture](assets/images/Screenshot2025-06-01_16-49-09.png)
+**图注：** LW-MoESGF 网络架构。左侧：双模态融合专家（Dual-Modal Fusion Expert）的详细信息，包括自引导融合（SGF）和细化模块。右侧：整体结构。$\oplus$: 特征相加, $\otimes$: 加权融合 (对应论文 Figure 3)。
 
 ## 📊 主要结果
 
 ### 表格
 
-**表1: 自适应三模态融合的有效性**
+**表1: 自适应三模态融合的有效性 (Effectiveness of adaptive tri-modal fusion)**
 | 方法                                      | mAP$_{50}$ (%) |
 |-------------------------------------------|----------------|
 | LW-MoESGF (RGB+IR)                        | 87.4           |
 | Tri-Modal (Non-adaptive)                  | 87.8           |
 | **ATMF-Net (Adaptive)**                   | **89.9**       |
 
-**表2: Tri-Modal Anti-UAV 测试集上单模态检测性能**
+**表2: Tri-Modal Anti-UAV 测试集上单模态检测性能 (Performance of single-modality detection)**
 | 模态                   | mAP$_{50}$ (%) | mAP (%) |
 |------------------------|----------------|---------|
 | YOLOv5l (RGB-only)     | 65.5           | 20.2    |
 | YOLOv5l (IR-only)      | **78.8**       | **27.2**|
 | YOLOv5l (Event-only)   | 9.76           | 3.57    |
 
-**表3: RGB-IR 双模态融合方法的性能和效率比较**
+**表3: RGB-IR 双模态融合方法的性能和效率比较 (Performance and efficiency comparison of RGB-IR dual-modal fusion methods)**
 | 方法                      | 参数量 (M) | FLOPs (G) | mAP$_{50}$ (%) |
 |---------------------------|------------|-----------|----------------|
 | 最佳单模态 (IR)           | **46.5**   | **109**   | 78.8           |
-| CFT (RGB+IR) [qingyun2021cross] | 206        | 224       | 86.6           |
+| CFT (RGB+IR) [Li et al., 2021] | 206        | 224       | 86.6           |
 | LW-MoESGF (RGB+IR)        | 76.2       | 192       | **87.4**       |
+*CFT citation: Qingyun Li, Filepe R. C. Encarnacao, and Aljosa Osep. 2021. Cross-modality Feature Transformer for Unsupervised Object Tracking. arXiv:2112.02009.*
 
 ### 图示
 
-#### 事件模态效果与检测结果对比
+#### 检测结果定性对比
 下图定性比较了不同方法在 Tri-Modal Anti-UAV 数据集上的检测效果。
-<!-- 请确保 result.png 存放到例如 assets/images/ 目录下, 并更新下面的路径 -->
-![Qualitative Results](assets/images/result.png)
-**图注：** Tri-Modal Anti-UAV 上的定性比较。从左到右：RGB、IR 和事件输入。图像上叠加显示：真实标签 (Ground Truth, 红色框)，LW-MoESGF (RGB+IR, 绿色框) 的检测结果，以及我们的 ATMF-Net (蓝色框) 的检测结果。
-
-[可以添加更多图示，例如 PR 曲线等。]
+![Qualitative Results](assets/images/Screenshot2025-06-01_16-49-24.png)
+**图注：** Tri-Modal Anti-UAV 上的定性比较。从左到右：RGB、IR 和事件输入。图像上叠加显示：真实标签 (Ground Truth, 红色框)，LW-MoESGF (RGB+IR, 绿色框) 的检测结果，以及我们的 ATMF-Net (蓝色框) 的检测结果 (对应论文 Figure 4)。
 
 ## 🛠️ 安装
 
 ### 环境要求
 *   Python >= 3.8
 *   PyTorch >= 1.7.0
-*   CUDA [您的CUDA版本，例如：10.2 / 11.1] (如果使用GPU)
+*   CUDA [例如：10.2 / 11.1 / 11.3] (如果使用GPU)
 *   其他依赖请参见 `requirements.txt`
 
 ### 安装步骤
 
 1.  **克隆本仓库:**
     ```bash
-    git clone [您的仓库HTTPS链接]
-    cd uavRGBTE
+    git clone https://github.com/eulerbaby123/Tri-Modal-Anti-UAV.git
+    cd Tri-Modal-Anti-UAV
     ```
 
 2.  **创建并激活虚拟环境 (推荐):**
@@ -205,3 +225,39 @@ UAV detectors.
 
 ### 依赖库
 本项目主要依赖以下库 (完整列表请见 `requirements.txt`):
+*   `torch`
+*   `torchvision`
+*   `numpy`
+*   `opencv-python`
+*   `matplotlib`
+*   `pyyaml`
+*   `tqdm`
+*   `pycocotools` (用于评估)
+
+## ⚙️ 使用
+
+### 数据准备
+1.  下载 Tri-Modal Anti-UAV 数据集 (链接见 [数据下载](#数据下载) 部分)。
+2.  将数据集解压并组织成如下结构 (或根据您的配置文件进行调整):
+    ```
+    Tri-Modal-Anti-UAV/
+    ├── images/
+    │   ├── train/
+    │   │   ├── rgb/      # RGB 图像
+    │   │   ├── ir/       # 红外图像
+    │   │   └── event/    # 事件帧图像
+    │   └── val/
+    │       ├── rgb/
+    │       ├── ir/
+    │       └── event/
+    ├── labels/
+    │   ├── train/      # YOLO 格式标签 (.txt)
+    │   └── val/
+    └── dataset.yaml    # 数据集配置文件
+    ```
+3.  确保 `dataset.yaml` (或类似配置文件) 中的路径正确指向您的数据集位置。
+
+### 训练
+使用以下命令开始训练 (请根据您的实际训练脚本和参数进行调整):
+```bash
+python train.py --cfg models/yolov5l_atmf.yaml --data data/uav_rgbte.yaml --weights yolov5l.pt --batch-size 8 --epochs 100 --device 0
