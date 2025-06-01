@@ -40,10 +40,6 @@ All data in this dataset were collected in public or controlled areas and do not
     - [Data Preparation](#data-preparation)
     - [Training](#training)
     - [Evaluation](#evaluation)
-  - [📜 Citation](#-citation)
-  - [📄 License](#-license)
-  - [🙏 Acknowledgements](#-acknowledgements)
-  - [📞 Contact](#-contact)
 
 ## 📝 Introduction
 
@@ -179,13 +175,6 @@ Our proposed ATMF-Net (Adaptive Tri-Modal Fusion Network) is an effective networ
   <br/><em>Figure: Detailed structure of the Self-Guided Fusion (SGF) module, a key component in ATMF-Net.</em>
 </div>
 
-### LW-MoESGF (RGB+IR)
-As a comparative baseline, we also provide an implementation of the LW-MoESGF (Lightweight Mixture-of-Experts with Self-Guided Fusion) model, an efficient RGB-IR dual-modal fusion model. This model also utilizes a Mixture-of-Experts framework and Self-Guided Fusion principles.
-*   **Code**: `./models/LW_MoESGF/` (Please replace with the actual path if different)
-*   **Pre-trained Weights**: `[Link or instructions for LW-MoESGF weights, if available]`
-
-**(Conceptual) LW-MoESGF Network Architecture Diagram (Refer to Paper Figure 3):**
-*A diagram similar to the ATMF-Net one, but for RGB+IR fusion, would typically be here, showcasing its specific MoE and SGF integration. Please refer to Figure 3 in our paper for the detailed architecture of LW-MoESGF.*
 
 ### Other Experimental Resources
 *   **Other Paper-related Experimental Code and Weights GDrive**: [https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link](https://drive.google.com/file/d/1WDaYFGmbvIM_oK0p7rGdpjXrhATFc6l2/view?usp=drive_link)
@@ -215,7 +204,7 @@ As a comparative baseline, we also provide an implementation of the LW-MoESGF (L
 | Best Single Modality (IR) | **46.5**       | **109**   | 78.8           |
 | CFT (RGB+IR) [Li et al., 2021] | 206        | 224       | 86.6           |
 | LW-MoESGF (RGB+IR)        | 76.2       | 192       | **87.4**       |
-*CFT citation: Qingyun Li, Filepe R. C. Encarnacao, and Aljosa Osep. 2021. Cross-modality Feature Transformer for Unsupervised Object Tracking. arXiv:2112.02009.*
+
 
 ### Figures
 
@@ -270,15 +259,7 @@ The following image shows an example of such an aligned image with edge padding:
     ```
     If you encounter issues installing `pycocotools`, please refer to its official documentation. Windows users might need to install Microsoft C++ Build Tools beforehand.
 
-### Key Dependencies
-*   `torch`
-*   `torchvision`
-*   `numpy`
-*   `opencv-python`
-*   `matplotlib`
-*   `pyyaml`
-*   `tqdm`
-*   `pycocotools` (for evaluation)
+
 
 ## ⚙️ Usage
 
@@ -306,10 +287,11 @@ The following image shows an example of such an aligned image with edge padding:
     └── val_ir.txt      # List of validation IR image paths
     └── val_event.txt   # List of validation Event image paths
     ```
-    *Note: The `.txt` files (e.g., `train_rgb.txt`) should list the paths to the respective image files relative to the dataset root or an appropriate base path defined in your data configuration scripts/files (e.g., `dataset.yaml` if used).*
+    
 
-### Training
+### Testing  or Training
 Use the following command to start testing and training (parameters can be modified within the script files as per actual requirements):
 ```bash
+python test.py
 python train.py 
 # Check train.py or associated config files for parameters like model config, data config, weights, batch size, epochs, device, etc.
