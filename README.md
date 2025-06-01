@@ -204,7 +204,7 @@ Our proposed ATMF-Net (Adaptive Tri-Modal Fusion Network) is an effective networ
 | Method                      | Parameters (M) | FLOPs (G) | mAP<sub>50</sub> (%)  |
 |---------------------------|----------------|-----------|----------------|
 | Best Single Modality (IR) | **46.5**       | **109**   | 78.8           |
-| CFT (RGB+IR) [Li et al., 2021] | 206        | 224       | 86.6           |
+| CFT (RGB+IR)  | 206        | 224       | 86.6           |
 | LW-MoESGF (RGB+IR)        | 76.2       | 192       | **87.4**       |
 
 
