@@ -244,7 +244,7 @@ The following image shows an example of such an aligned image with edge padding:
     cd Tri-Modal-Anti-UAV
     ```
 
-2.  **Create and activate a virtual environment (recommended):**
+2.  **Create and activate a virtual environment:**
     ```bash
     python -m venv venv
     # Windows
@@ -267,25 +267,20 @@ The following image shows an example of such an aligned image with edge padding:
 1.  Download the Tri-Modal Anti-UAV dataset (link in the [Data Download](#data-download) section).
 2.  Extract the dataset and organize it as follows (or adjust according to your configuration files):
     ```
+    ```
     Tri-Modal-Anti-UAV/
-    ├── images/       # Contains subdirectories for rgb, ir, event images for train/val splits
-    │   ├── train/
-    │   │   ├── rgb/
-    │   │   ├── ir/
-    │   │   └── event/
-    │   └── val/
-    │       ├── rgb/
-    │       ├── ir/
-    │       └── event/
-    ├── labels/       # Contains corresponding YOLO format label .txt files for train/val splits
-    │   ├── train/
-    │   └── val/
-    └── train_rgb.txt   # List of training RGB image paths
-    └── train_ir.txt    # List of training IR image paths
-    └── train_event.txt # List of training Event image paths
-    └── val_rgb.txt     # List of validation RGB image paths
-    └── val_ir.txt      # List of validation IR image paths
-    └── val_event.txt   # List of validation Event image paths
+    ├── images/
+    │  
+    ├── labels/
+    │  
+    └──train_rgb.txt
+    └──train_ir.txt
+    └──train_event.txt
+    └──val_rgb.txt
+    └──val_ir.txt
+    └──val_event.txt
+    ```
+
     ```
     
 
