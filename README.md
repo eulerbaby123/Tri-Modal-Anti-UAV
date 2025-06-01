@@ -1,6 +1,6 @@
 # uavRGBTE: Tri-Modal Anti-UAV Dataset and ATMF-Net
 
-[![Paper](https://img.shields.io/badge/Paper-ARXIV_LINK_OR_DOI-B31B1B.svg)]([请在此处插入论文链接])
+
 [![Dataset](https://img.shields.io/badge/Dataset-Download-blue.svg)](https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link)
 
 欢迎来到 **uavRGBTE** 项目！这是论文 **"Tri-Modal Anti-UAV: A Comprehensive Benchmarking Dataset for UAV-Targeted Detection"** 的官方代码和数据集。
