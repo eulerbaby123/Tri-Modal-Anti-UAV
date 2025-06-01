@@ -1,10 +1,10 @@
-# uavRGBTE: Tri-Modal Anti-UAV Dataset and ATMF-Net
+#  Tri-Modal Anti-UAV Dataset and ATMF-Net
 
-[![Paper](https://img.shields.io/badge/Paper-ACMMM'25_PLACEHOLDER-B31B1B.svg)](YOUR_PAPER_LINK_HERE)
+
 [![Dataset](https://img.shields.io/badge/Dataset-Download-blue.svg)](https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link)
 [![GitHub](https://img.shields.io/badge/GitHub-Repo-blue.svg)](https://github.com/eulerbaby123/Tri-Modal-Anti-UAV)
 
-欢迎来到 **uavRGBTE** 项目！这是论文 **"Adaptive Tri-Modal Fusion for Robust Anti-UAV Detection with Event Fluctuation Awareness"** (暂定名，请根据实际论文题目修改) 的官方代码和数据集。
+欢迎来到 **Tri-Modal Anti-UAV** 项目！这是论文 **"Adaptive Tri-Modal Fusion for Robust Anti-UAV Detection with Event Fluctuation Awareness"**  的官方代码和数据集。
 
 本项目旨在提供一个全面的三模态（RGB、Thermal、Event）反无人机检测基准数据集 **Tri-Modal Anti-UAV**，并提出了一种有效的自适应融合网络 **ATMF-Net** 用于无人机目标检测。
 
@@ -14,7 +14,7 @@
 
 ## 目录
 
-- [uavRGBTE: Tri-Modal Anti-UAV Dataset and ATMF-Net](#uavrgbte-tri-modal-anti-uav-dataset-and-atmf-net)
+- [Tri-Modal Anti-UAV Dataset and ATMF-Net](#uavrgbte-tri-modal-anti-uav-dataset-and-atmf-net)
   - [⚖️ Ethical Considerations and Privacy (道德考量与隐私)](#️-ethical-considerations-and-privacy-道德考量与隐私)
   - [目录](#目录)
   - [📝 简介](#-简介)
@@ -97,21 +97,9 @@ UAV detectors.
 
 **数据处理与标注**:
 *   **事件数据处理**: 将事件相机产生的原始异步事件流在20毫秒的固定时间窗口内累积，生成事件帧，以平衡运动模糊和信息密度。
-*   **多模态对齐**: 鉴于传感器规格（分辨率、视场角）和物理布置的差异，采用基于特征点的配准技术将RGB和事件帧对齐到热红外模态的坐标系（热红外具有最高原始分辨率）。应用仿射变换矩阵，确保包含无人机的区域在三个模态间空间一致。采用“弱对齐”策略，即不强制标注边界框内无人机的严格像素级对应，旨在鼓励开发对轻微空间不一致性不敏感的鲁棒融合机制。
+*   **多模态对齐**: 鉴于传感器规格（分辨率、视场角）和物理布置的差异，采用基于特征点的配准技术将RGB和事件帧对齐到热红外模态的坐标系（热红外具有最高原始分辨率）。应用仿射变换矩阵，确保包含无人机的区域在三个模态间空间一致。采用“弱对齐”策略，即不强制标注边界框内无人机的严格像素级对应，也允许背景区域弱对齐，旨在鼓励开发对轻微空间不一致性不敏感的鲁棒融合机制。
 *   **数据标注**: 所有数据均使用LabelImg以YOLO格式进行标注。标注在通过对齐后的三模态数据进行像素级融合创建的图像上进行，这些标注可直接转移到配准后的RGB、IR和事件数据帧。
 
-### 对齐补充说明
-需要注意的是，在数据集中，少部分图像由于采集于近距离场景、不同传感器间固有的视角差异以及像素分辨率差异等因素的综合影响，在经过仿射变换对齐后，其边缘区域可能出现部分无有效像素信息的区域。这些区域我们统一用黑色或白色进行了填充。因此，对齐前后的图像在视觉上可能存在一定的差异。
-
-我们选择保留这些样本而非丢弃，原因在于：
-1.  **真实场景模拟**：这种情况在实际多传感器融合应用中是可能发生的，保留它们有助于模型学习应对此类不完美对齐。
-2.  **鲁棒性提升**：这些由对齐引入的、内容信息基本不变的视觉差异，可以视为一种数据增强或干扰。我们认为，这反而能够促使模型学习到更本质、更鲁棒的特征，提升其在复杂真实环境下的泛化能力。
-
-下图展示了一个此类对齐后图像出现边缘填充的示例：
-<div align="center">
-  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/34fabfae1f61173924738877dea5e85addc5423b/images/Screenshot2025-06-01_19-31-01.png?raw=true" width="600" alt="Alignment Artifact Example">
-  <br/><em>图注：对齐后图像边缘可能出现无像素信息（黑色填充）的示例。</em>
-</div>
 
 ### 数据集统计
 **表：Tri-Modal Anti-UAV 数据集关键统计**
@@ -127,19 +115,19 @@ UAV detectors.
 
 **数据集样本概览:**
 <div align="center">
-  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-49-42.png?raw=true" width="600" alt="Dataset Samples">
+  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-49-42.png?raw=true" width="1000" alt="Dataset Samples">
   <br/><em>图注：Tri-Modal Anti-UAV 数据集样本图像。目标用红色框标出。顶行：RGB模态；中间行：红外热成像模态；底行：事件模态，展示了多样性的事件数据质量 (对应论文 Figure 1)。</em>
 </div>
 
 **各种质量的事件数据示例:**
 <div align="center">
-  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/1415f24196421d9e56c68916e871d3a260d8debc/images/Screenshot2025-06-01_18-39-12.png?raw=true" width="600" alt="Event Data Quality Examples">
-  <br/><em>图注：事件模态数据质量的多样性展示，从左到右质量递减。</em>
+  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/1415f24196421d9e56c68916e871d3a260d8debc/images/Screenshot2025-06-01_18-39-12.png?raw=true" width="1000" alt="Event Data Quality Examples">
+  <br/><em>图注：事件模态数据质量的多样性展示，数据集包含各种质量的数据，也包含噪声，无信息的情况。</em>
 </div>
 
 **多样化拍摄场景 (以红外模态展示):**
 <div align="center">
-  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/7821aac26e95be05f95116f40abd9d082f66017c/images/Screenshot2025-06-01_18-57-35.png?raw=true" width="600" alt="Diverse Scenes IR">
+  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/7821aac26e95be05f95116f40abd9d082f66017c/images/Screenshot2025-06-01_18-57-35.png?raw=true" width="1000" alt="Diverse Scenes IR">
   <br/><em>图注：数据集中多样化的拍摄场景（以红外模态展示部分样例）。</em>
 </div>
 
@@ -182,7 +170,7 @@ UAV detectors.
 
 **ATMF-Net 网络架构图:**
 <div align="center">
-  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-48-55.png?raw=true" width="600" alt="ATMF-Net Architecture">
+  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/2de41951e962a9cff3eb1c2849c3d051f70fc087/images/Screenshot2025-06-01_16-48-55.png?raw=true" width="1200" alt="ATMF-Net Architecture">
   <br/><em>图注：ATMF-Net 网络架构。右侧：整体融合路径（以RGB特征为例）。左侧：三模态融合专家（Tri-Modal Fusion Expert）的详细信息。关键组件包括事件可靠性评估器（ERE）和用于动态专家权重调整的MoE路由器。$\oplus$: 特征相加, $\otimes$: 加权融合 (对应论文 Figure 2)。</em>
 </div>
 
@@ -242,12 +230,27 @@ UAV detectors.
   <br/><em>图注：Tri-Modal Anti-UAV 上的定性比较。从左到右：RGB、IR 和事件输入。图像上叠加显示：真实标签 (Ground Truth, 红色框)，LW-MoESGF (RGB+IR, 绿色框) 的检测结果，以及我们的 ATMF-Net (蓝色框) 的检测结果 (对应论文 Figure 4)。</em>
 </div>
 
+
+
+### 对齐补充说明
+需要注意的是，在数据集中，少部分图像由于采集于近距离场景、不同传感器间固有的视角差异以及像素分辨率差异等因素的综合影响，在经过仿射变换对齐后，其边缘区域可能出现部分无有效像素信息的区域。这些区域我们统一用黑色或白色进行了填充，加之受限于仿射变换对齐方法自身缺陷，对齐前后的图像在视觉上可能存在一定的差异。
+
+我们选择保留这些样本而非丢弃，原因在于：
+1.  **真实场景模拟**：这种情况在实际多传感器融合应用中是可能发生的，保留它们有助于模型学习应对此类不完美对齐。
+2.  **鲁棒性提升**：这些由对齐引入的、内容信息基本不变的视觉差异，可以视为一种数据增强或干扰。我们认为，这反而能够促使模型学习到更本质、更鲁棒的特征，提升其在复杂真实环境下的泛化能力。
+
+下图展示了一个此类对齐后图像出现边缘填充的示例：
+<div align="center">
+  <img src="https://github.com/eulerbaby123/Tri-Modal-Anti-UAV/raw/34fabfae1f61173924738877dea5e85addc5423b/images/Screenshot2025-06-01_19-31-01.png?raw=true" width="600" alt="Alignment Artifact Example">
+  <br/><em>图注：对齐后图像边缘可能出现无像素信息（黑色填充）的示例。</em>
+</div>
+
 ## 🛠️ 安装
 
 ### 环境要求
 *   Python >= 3.8
 *   PyTorch >= 1.7.0
-*   CUDA [例如：10.2 / 11.1 / 11.3] (如果使用GPU)
+*   CUDA [11.3] (如果使用GPU)
 *   其他依赖请参见 `requirements.txt`
 
 ### 安装步骤
@@ -270,19 +273,7 @@ UAV detectors.
 3.  **安装依赖:**
     ```bash
     pip install -r requirements.txt
-    ```
-    如果遇到 `pycocotools` 安装问题，请参考其官方文档进行安装。对于 Windows 用户，可能需要预先安装 Microsoft C++ Build Tools。
-
-### 依赖库
-本项目主要依赖以下库 (完整列表请见 `requirements.txt`):
-*   `torch`
-*   `torchvision`
-*   `numpy`
-*   `opencv-python`
-*   `matplotlib`
-*   `pyyaml`
-*   `tqdm`
-*   `pycocotools` (用于评估)
+ 
 
 ## ⚙️ 使用
 
@@ -292,22 +283,20 @@ UAV detectors.
     ```
     Tri-Modal-Anti-UAV/
     ├── images/
-    │   ├── train/
-    │   │   ├── rgb/      # RGB 图像
-    │   │   ├── ir/       # 红外图像
-    │   │   └── event/    # 事件帧图像
-    │   └── val/
-    │       ├── rgb/
-    │       ├── ir/
-    │       └── event/
+    │  
     ├── labels/
-    │   ├── train/      # YOLO 格式标签 (.txt)
-    │   └── val/
-    └── dataset.yaml    # 数据集配置文件
+    │  
+    └──train_rgb.txt
+    └──train_ir.txt
+    └──train_event.txt
+    └──val_rgb.txt
+    └──val_ir.txt
+    └──val_event.txt
     ```
-3.  确保 `dataset.yaml` (或类似配置文件) 中的路径正确指向您的数据集位置。
+
 
 ### 训练
-使用以下命令开始训练 (请根据您的实际训练脚本和参数进行调整):
+使用以下命令开始测试,训练(根据实际需求可在脚本文件修改参数):
 ```bash
-python train.py --cfg models/yolov5l_atmf.yaml --data data/uav_rgbte.yaml --weights yolov5l.pt --batch-size 8 --epochs 100 --device 0
+python test.py
+python train.py
