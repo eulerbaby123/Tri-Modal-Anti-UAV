@@ -1,3 +1,7 @@
+<p align="right">
+  <a href="./README.md">English</a> | <a href="./README_zh.md">中文</a>
+</p>
+
 # Tri-Modal Anti-UAV Dataset and ATMF-Net（多模态无人机检测系统，可见光+红外+event）
 
 [![Dataset](https://img.shields.io/badge/Dataset-Download-blue.svg)](https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link)
@@ -269,7 +273,7 @@ The following image shows an example of such an aligned image with edge padding:
 1.  Download the Tri-Modal Anti-UAV dataset (link in the [Data Download](#data-download) section).
 2.  Extract the dataset and organize it as follows (or adjust according to your configuration files):
     ```
-    
+
     Tri-Modal-Anti-UAV/
     ├── images/
     │  
@@ -283,8 +287,8 @@ The following image shows an example of such an aligned image with edge padding:
     └──val_event.txt
     ```
 
-    
-    
+
+
 
 ### Testing  or Training
 Use the following command to start testing and training (parameters can be modified within the script files as per actual requirements):
@@ -292,3 +296,4 @@ Use the following command to start testing and training (parameters can be modif
 python test.py
 python train.py 
 # Check train.py or associated config files for parameters like model config, data config, weights, batch size, epochs, device, etc.
+现在希望这份md，可以随意地有按键切换中英文。
