@@ -2,7 +2,7 @@
   <a href="./README.md">English</a> | <a href="./README_zh.md">中文</a>
 </p>
 
-# Tri-Modal Anti-UAV Dataset and ATMF-Net（多模态无人机检测系统，可见光+红外+event）
+# Tri-Modal Anti-UAV Dataset and ATMF-Net（多模态反无人机系统，可见光+红外+event）
 
 [![Dataset](https://img.shields.io/badge/Dataset-Download-blue.svg)](https://drive.google.com/drive/folders/1t_oaJZuSyBd7W4oW93-T_WvN4_0cdBuE?usp=drive_link)
 [![GitHub](https://img.shields.io/badge/GitHub-Repo-blue.svg)](https://github.com/eulerbaby123/Tri-Modal-Anti-UAV)
